@@ -1,23 +1,30 @@
 #include<iostream>
 #include<string>
 
-struct Node{
+struct Node
+{
     std::string data;
     Node *link;
 };
 
-class Lilist{
+class Lilist
+{
     public:
         Lilist(){head = NULL;}
         void add(std::string item);
         void show();
+        Node* search(const std::string data);
+        void move_front_to_back();
+
     private:
         Node *head;
 };
 
-void Lilist::add(std::string item){
+void Lilist::add(std::string item)
+{
     Node * tmp;
-    if(head == NULL){
+    if(head == NULL)
+    {
         head = new Node;
         head -> data = item;
         head -> link = NULL;
@@ -33,7 +40,36 @@ void Lilist::add(std::string item){
     }
 }
 
-void Lilist::show(){
+void Lilist::show()
+{
     for(Node *tmp = head; tmp != NULL; tmp = tmp->link)
-        std::cout<<tmp->data<<"  ";
+        std::cout << tmp->data <<"  ";
+}
+
+Node* Lilist::search(const std::string target)
+{
+    for(Node* cursor = head; cursor != NULL; cursor = cursor -> link)
+    {
+        if(cursor->data == target)
+        {
+            return cursor;
+        }
+    }
+    return NULL;
+}
+
+void Lilist::move_front_to_back()
+{
+    Node* back;
+    Node* front = head;
+    head = head -> link;
+    std::string item;
+
+    for(back = head; back->link != NULL; back = back -> link)
+        ; 
+
+    back -> link = new Node;
+    back = back -> link;
+    front = front -> link;
+    back -> link = NULL;
 }
