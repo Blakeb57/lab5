@@ -5,6 +5,14 @@ struct Node
 {
     std::string data;
     Node *link;
+
+/*
+    Node(std::string data)
+    {
+        this -> data = data;
+        link = NULL;
+    }
+    */
 };
 
 class Lilist
@@ -42,8 +50,12 @@ void Lilist::add(std::string item)
 
 void Lilist::show()
 {
+    struct Node* temp = head;
+    
     for(Node *tmp = head; tmp != NULL; tmp = tmp->link)
         std::cout << tmp->data <<"  ";
+    temp = temp -> link;
+    
 }
 
 Node* Lilist::search(const std::string target)
@@ -60,6 +72,23 @@ Node* Lilist::search(const std::string target)
 
 void Lilist::move_front_to_back()
 {
+    Node* front = head;
+    //head = head -> link;
+    Node* link = NULL;
+    Node* prev = NULL;
+
+    while(front != NULL)
+    {
+        link = front -> link;
+        front -> link = prev;
+        prev = front;
+        front = link;
+    }
+    head = prev;
+
+
+
+    /*
     Node* back;
     Node* front = head;
     head = head -> link;
@@ -72,4 +101,5 @@ void Lilist::move_front_to_back()
     back = back -> link;
     front = front -> link;
     back -> link = NULL;
+    */
 }
